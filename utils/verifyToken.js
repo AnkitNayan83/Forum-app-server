@@ -1,4 +1,4 @@
-const createError = require("../utils/error");
+const createError = require("./error");
 const jwt = require("jsonwebtoken");
 
 //verifying token (checkin whether use is loggedin or not)
