@@ -11,21 +11,21 @@ const postSchema = new mongoose.Schema(
             required: true,
         },
         photos: {
-            type: Array[String],
+            type: [String],
         },
         author: {
-            type: Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: "User",
         },
         answers: [
             {
-                type: Schema.Types.ObjectId,
+                type: mongoose.Schema.Types.ObjectId,
                 ref: "Comment",
             },
         ],
         votes: [
             {
-                type: Schema.Types.ObjectId,
+                type: mongoose.Schema.Types.ObjectId,
                 ref: "User",
             },
         ],

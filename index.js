@@ -3,6 +3,8 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const cors = require("cors");
 const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
+const postRoutes = require("./routes/post");
 const cookieParser = require("cookie-parser");
 
 const app = express();
@@ -31,6 +33,8 @@ app.use(cors());
 app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/post", postRoutes);
 
 //Error Handeling Middleware
 app.use((err, req, res, next) => {

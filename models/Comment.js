@@ -6,12 +6,12 @@ const commentSchema = new mongoose.Schema({
         required: true,
     },
     author: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User",
     },
     votes: [
         {
-            type: Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: "User",
         },
     ],

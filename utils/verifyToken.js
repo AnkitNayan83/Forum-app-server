@@ -14,7 +14,7 @@ const verifyToken = (req, res, next) => {
 
 // verifying whether this request on this post is made by its owner or not
 const verifyUser = (req, res, next) => {
-    verifyToken(req, res, next, () => {
+    verifyToken(req, res, () => {
         if (req.user.id === req.params.id || req.user.isAdmin) {
             next();
         } else {
