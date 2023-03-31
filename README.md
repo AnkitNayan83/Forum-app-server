@@ -65,6 +65,6 @@ create a .env file and add your
     $ yarn start
 
 ## Simple build for production
-    $npm run build
+    $ npm run build
     or
     $ yarn build
