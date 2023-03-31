@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const Comment = require("../models/Comment");
 const createError = require("../utils/error");
+const Post = require("../models/Post");
 
 const editUser = async (req, res, next) => {
     try {
@@ -29,7 +30,17 @@ const deleteUser = async (req, res, next) => {
         if (!check) return next(createError(404, "User not found"));
         //delete all votes
         //delete all comments
+        try {
+            await Comment.deleteMany({ author: id });
+        } catch (error) {
+            return next(error);
+        }
         // delete all posts
+        try {
+            await Post.deleteMany({ author: id });
+        } catch (error) {
+            return next(error);
+        }
         await User.findByIdAndDelete(id);
         res.status(201).send("User Deleted");
     } catch (error) {

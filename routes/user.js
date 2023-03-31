@@ -10,7 +10,7 @@ const router = require("express").Router();
 // Update user
 router.put("/:id", verifyUser, editUser);
 // Delete user
-router.delete("/:id", deleteUser);
+router.delete("/:id", verifyUser, deleteUser);
 // find all user
 router.get("/", getAllUser);
 // find specific user
