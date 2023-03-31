@@ -23,12 +23,23 @@ const postSchema = new mongoose.Schema(
                 ref: "Comment",
             },
         ],
-        votes: [
+        upvotes: [
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "User",
             },
         ],
+        downvotes: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User",
+            },
+        ],
+        votes: {
+            type: Number,
+            default: 0,
+        },
+        tags: [String],
     },
     { timestamps: true }
 );
