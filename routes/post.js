@@ -8,7 +8,7 @@ const {
     getAllPost,
     getPost,
 } = require("../controller/post");
-const { verifyUser, verifyToken } = require("../utils/verifyToken");
+const { verifyToken, verifyPost } = require("../utils/verifyToken");
 
 // CREATE POST
 router.post("/", verifyToken, createPost);
@@ -18,9 +18,9 @@ router.post("/upvote/:id", verifyToken, upVote);
 //DOWN
 router.post("/downvote/:id", verifyToken, downVote);
 // DELETE POST
-router.delete("/:id", verifyUser, deletePost);
+router.delete("/:id", verifyPost, deletePost);
 // UPDATE POST
-router.put("/:id", verifyUser, updatePost);
+router.put("/:id", verifyPost, updatePost);
 // GET ALL POST
 router.get("/", getAllPost);
 // GET POST

@@ -1,3 +1,5 @@
+const Comment = require("../models/Comment");
+const Post = require("../models/Post");
 const createError = require("./error");
 const jwt = require("jsonwebtoken");
 
@@ -25,10 +27,44 @@ const verifyUser = (req, res, next) => {
 
 // verifying admin
 const verifyAdmin = (req, res, next) => {
-    verifyToken(req, res, next, () => {
+    verifyToken(req, res, () => {
         if (req.user.isAdmin) next();
         else return next(createError(403, "You are not authorized"));
     });
 };
 
-module.exports = { verifyToken, verifyAdmin, verifyUser };
+// verifying whether this post belong to the user or not
+const verifyPost = (req, res, next) => {
+    verifyToken(req, res, async () => {
+        const post = await Post.findById(req.params.id);
+        if (post.author.toString() === req.user.id || req.user.isAdmin) {
+            next();
+        } else {
+            return next(createError(403, "You are not authenticated"));
+        }
+    });
+};
+
+const verifyComment = (req, res, next) => {
+    verifyToken(req, res, async () => {
+        let comment;
+        try {
+            comment = await Comment.findById(req.params.id);
+        } catch (error) {
+            return next(createError(502, "Bad gateway"));
+        }
+        if (comment.author.toString() === req.user.id || req.user.isAdmin) {
+            next();
+        } else {
+            return next(createError(403, "You are not authenticated"));
+        }
+    });
+};
+
+module.exports = {
+    verifyToken,
+    verifyAdmin,
+    verifyUser,
+    verifyPost,
+    verifyComment,
+};
