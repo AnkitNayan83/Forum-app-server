@@ -96,10 +96,21 @@ const editComment = async (req, res, next) => {
     }
 };
 
+const getComment = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const cmt = await Comment.findById(id);
+        res.status(200).json(cmt);
+    } catch (error) {
+        next(error);
+    }
+};
+
 module.exports = {
     createComment,
     deleteComment,
     editComment,
     upVote,
     downVote,
+    getComment,
 };

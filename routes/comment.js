@@ -5,6 +5,7 @@ const {
     upVote,
     downVote,
     editComment,
+    getComment,
 } = require("../controller/comment");
 const { verifyToken, verifyComment } = require("../utils/verifyToken");
 
@@ -17,7 +18,7 @@ router.post("/downvote/:id", verifyToken, downVote);
 router.delete("/:postId/:id", verifyComment, deleteComment);
 //UPDATE
 router.put("/:id", verifyComment, editComment);
-//GET ALL
 // GET
+router.get("/:id", getComment);
 
 module.exports = router;
