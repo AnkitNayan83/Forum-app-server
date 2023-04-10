@@ -6,6 +6,7 @@ const {
     downVote,
     editComment,
     getComment,
+    getAllComments,
 } = require("../controller/comment");
 const { verifyToken, verifyComment } = require("../utils/verifyToken");
 
@@ -18,6 +19,8 @@ router.post("/downvote/:id", verifyToken, downVote);
 router.delete("/:postId/:id", verifyComment, deleteComment);
 //UPDATE
 router.put("/:id", verifyComment, editComment);
+// GET All
+router.get("/all", getAllComments);
 // GET
 router.get("/:id", getComment);
 

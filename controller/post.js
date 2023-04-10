@@ -96,11 +96,14 @@ const getAllPost = async (req, res, next) => {
     try {
         const qNew = req.query.new;
         const qVote = req.query.vote;
+        const qTag = req.query.tag;
         let posts;
         if (qNew) {
             posts = await Post.find({}).sort({ createdAt: -1 });
         } else if (qVote) {
             posts = await Post.find({}).sort({ votes: -1 });
+        } else if (qTag) {
+            posts = await Post.find({ tags: { $in: [qTag] } });
         } else {
             posts = await Post.find({});
         }

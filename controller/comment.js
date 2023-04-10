@@ -106,6 +106,18 @@ const getComment = async (req, res, next) => {
     }
 };
 
+const getAllComments = async (req, res, next) => {
+    try {
+        const postId = req.query.postId;
+        let comments;
+        if (postId) comments = await Comment.find({ postId });
+        else comments = await Comment.find({});
+        res.status(201).json(comments);
+    } catch (error) {
+        next(error);
+    }
+};
+
 module.exports = {
     createComment,
     deleteComment,
@@ -113,4 +125,5 @@ module.exports = {
     upVote,
     downVote,
     getComment,
+    getAllComments,
 };
