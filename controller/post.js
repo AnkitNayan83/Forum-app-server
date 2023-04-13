@@ -100,17 +100,23 @@ const getAllPost = async (req, res, next) => {
         const qTitle = req.query.title;
         let posts;
         if (qNew) {
-            posts = await Post.find(qTitle ? { title: qTitle } : {}).sort({
+            posts = await Post.find(
+                qTitle ? { title: { $regex: new RegExp(qTitle) } } : {}
+            ).sort({
                 createdAt: -1,
             });
         } else if (qVote) {
-            posts = await Post.find(qTitle ? { title: qTitle } : {}).sort({
+            posts = await Post.find(
+                qTitle ? { title: { $regex: new RegExp(qTitle) } } : {}
+            ).sort({
                 votes: -1,
             });
         } else if (qTag) {
             posts = await Post.find({ tags: { $in: [qTag] } });
         } else {
-            posts = await Post.find(qTitle ? { title: qTitle } : {});
+            posts = await Post.find(
+                qTitle ? { title: { $regex: new RegExp(qTitle) } } : {}
+            );
         }
         res.status(200).json(posts);
     } catch (error) {
