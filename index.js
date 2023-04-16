@@ -30,12 +30,13 @@ db.on("disconnected", () => {
 //middlewares
 app.use(cookieParser());
 app.use(express.json());
-app.use(
-    cors({
-        origin: "http://localhost:3000",
-        credentials: true,
-    })
-);
+const corsConfig = {
+    origin: true,
+    credentials: true,
+};
+
+app.use(cors(corsConfig));
+app.options("*", cors(corsConfig));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);

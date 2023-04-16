@@ -10,11 +10,11 @@ const {
 } = require("../controller/comment");
 const { verifyToken, verifyComment } = require("../utils/verifyToken");
 
-//CREATE
-router.post("/create/:id", verifyToken, createComment);
 //VOTES
 router.post("/upvote/:id", verifyToken, upVote);
 router.post("/downvote/:id", verifyToken, downVote);
+//CREATE
+router.post("/create/:id", verifyToken, createComment);
 //DELETE
 router.delete("/:postId/:id", verifyComment, deleteComment);
 //UPDATE
