@@ -7,6 +7,7 @@ const {
     updatePost,
     getAllPost,
     getPost,
+    getVotes,
 } = require("../controller/post");
 const { verifyToken, verifyPost } = require("../utils/verifyToken");
 
@@ -25,5 +26,7 @@ router.put("/:id", verifyPost, updatePost);
 router.get("/", getAllPost);
 // GET POST
 router.get("/:id", getPost);
+// GET Votes
+router.get("/vote/:id", getVotes);
 
 module.exports = router;

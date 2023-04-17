@@ -7,6 +7,7 @@ const {
     editComment,
     getComment,
     getAllComments,
+    getVote,
 } = require("../controller/comment");
 const { verifyToken, verifyComment } = require("../utils/verifyToken");
 
@@ -23,5 +24,6 @@ router.put("/:id", verifyComment, editComment);
 router.get("/all", getAllComments);
 // GET
 router.get("/:id", getComment);
-
+// GET VOTE
+router.get("/vote/:id", getVote);
 module.exports = router;

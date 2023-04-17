@@ -32,7 +32,7 @@ const upVote = async (req, res, next) => {
         const vote = post.upvotes.length - post.downvotes.length;
         post.votes = vote;
         await post.save();
-        res.status(200).send("Your response has been recorded");
+        res.status(200).json(vote);
     } catch (error) {
         next(error);
     }
@@ -57,7 +57,7 @@ const downVote = async (req, res, next) => {
         const vote = post.upvotes.length - post.downvotes.length;
         post.votes = vote;
         await post.save();
-        res.status(200).send("Your response has been recorded");
+        res.status(200).json(vote);
     } catch (error) {
         next(error);
     }
@@ -92,12 +92,23 @@ const updatePost = async (req, res, next) => {
     }
 };
 
+const getVotes = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const post = await Post.findById(id);
+        res.status(201).json(post.votes);
+    } catch (error) {
+        next(error);
+    }
+};
+
 const getAllPost = async (req, res, next) => {
     try {
         const qNew = req.query.new;
         const qVote = req.query.vote;
         const qTag = req.query.tag;
         const qTitle = req.query.title;
+        const qUser = req.query.user;
         let posts;
         if (qNew) {
             posts = await Post.find(
@@ -113,6 +124,8 @@ const getAllPost = async (req, res, next) => {
             });
         } else if (qTag) {
             posts = await Post.find({ tags: { $in: [qTag] } });
+        } else if (qUser) {
+            posts = await Post.find({ author: qUser });
         } else {
             posts = await Post.find(
                 qTitle ? { title: { $regex: new RegExp(qTitle) } } : {}
@@ -143,4 +156,5 @@ module.exports = {
     updatePost,
     getAllPost,
     getPost,
+    getVotes,
 };

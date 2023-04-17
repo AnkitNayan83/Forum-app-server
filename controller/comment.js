@@ -1,5 +1,6 @@
 const Comment = require("../models/Comment");
 const Post = require("../models/Post");
+const createError = require("../utils/error");
 
 const createComment = async (req, res, next) => {
     try {
@@ -35,7 +36,7 @@ const upVote = async (req, res, next) => {
         const vote = comment.upvotes.length - comment.downvotes.length;
         comment.votes = vote;
         await comment.save();
-        res.status(200).send("Your response has been recorded");
+        res.status(200).json(vote);
     } catch (error) {
         next(error);
     }
@@ -60,7 +61,7 @@ const downVote = async (req, res, next) => {
         const vote = comment.upvotes.length - comment.downvotes.length;
         comment.votes = vote;
         await comment.save();
-        res.status(200).send("Your response has been recorded");
+        res.status(200).json(vote);
     } catch (error) {
         next(error);
     }
@@ -118,6 +119,16 @@ const getAllComments = async (req, res, next) => {
     }
 };
 
+const getVote = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const post = await Comment.findById(id);
+        res.status(201).json(post.votes);
+    } catch (error) {
+        next(error);
+    }
+};
+
 module.exports = {
     createComment,
     deleteComment,
@@ -126,4 +137,5 @@ module.exports = {
     downVote,
     getComment,
     getAllComments,
+    getVote,
 };
