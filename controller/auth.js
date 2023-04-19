@@ -53,7 +53,11 @@ const login = async (req, res, next) => {
 
         const { password, isAdmin, ...others } = checkUser._doc;
 
-        res.cookie("access_token", token, { maxAge: 7 * 24 * 60 * 60 * 1000 })
+        res.cookie("access_token", token, {
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+            sameSite: "none",
+            secure: "auto",
+        })
             .status(200)
             .json({ ...others });
     } catch (error) {
