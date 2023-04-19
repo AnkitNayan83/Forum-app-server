@@ -12,16 +12,16 @@ const {
 const { verifyToken, verifyPost } = require("../utils/verifyToken");
 
 // CREATE POST
-router.post("/", verifyToken, createPost);
+router.post("/", createPost);
 // ADD VOTE
 //UP
-router.post("/upvote/:id", verifyToken, upVote);
+router.post("/upvote/:id", upVote);
 //DOWN
-router.post("/downvote/:id", verifyToken, downVote);
+router.post("/downvote/:id", downVote);
 // DELETE POST
-router.delete("/:id", verifyPost, deletePost);
+router.delete("/:id", deletePost);
 // UPDATE POST
-router.put("/:id", verifyPost, updatePost);
+router.put("/:id", updatePost);
 // GET ALL POST
 router.get("/", getAllPost);
 // GET POST

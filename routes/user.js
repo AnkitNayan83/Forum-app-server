@@ -8,9 +8,9 @@ const { verifyUser } = require("../utils/verifyToken");
 const router = require("express").Router();
 
 // Update user
-router.put("/:id", verifyUser, editUser);
+router.put("/:id", editUser);
 // Delete user
-router.delete("/:id", verifyUser, deleteUser);
+router.delete("/:id", deleteUser);
 // find all user
 router.get("/", getAllUser);
 // find specific user
