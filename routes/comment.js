@@ -12,14 +12,14 @@ const {
 const { verifyToken, verifyComment } = require("../utils/verifyToken");
 
 //VOTES
-router.post("/upvote/:id", upVote);
-router.post("/downvote/:id", downVote);
+router.post("/upvote/:id", verifyToken, upVote);
+router.post("/downvote/:id", verifyToken, downVote);
 //CREATE
-router.post("/create/:id", createComment);
+router.post("/create/:id", verifyToken, createComment);
 //DELETE
-router.delete("/:postId/:id", deleteComment);
+router.delete("/:postId/:id", verifyComment, deleteComment);
 //UPDATE
-router.put("/:id", editComment);
+router.put("/:id", verifyComment, editComment);
 // GET All
 router.get("/all", getAllComments);
 // GET

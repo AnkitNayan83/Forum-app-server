@@ -28,7 +28,13 @@ db.on("disconnected", () => {
 });
 
 //middlewares
-app.use(cors());
+app.use(
+    cors({
+        origin: "https://forum-app-server.vercel.app",
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        credentials: true,
+    })
+);
 app.use(cookieParser());
 app.use(express.json());
 
