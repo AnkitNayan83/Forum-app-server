@@ -30,7 +30,7 @@ db.on("disconnected", () => {
 //middlewares
 app.use(
     cors({
-        origin: "https://forum-app-server.vercel.app",
+        origin: "http://localhost:3000",
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true,
     })
